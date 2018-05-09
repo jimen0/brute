@@ -30,7 +30,7 @@ type Bruter struct {
 func (b Bruter) Brute(ctx context.Context, r io.Reader, out chan<- string) error {
 	defer close(out)
 
-	if isWildcard(ctx, b.Domain, b.Servers[0]) {
+	if IsWildcard(ctx, b.Domain, b.Servers[0]) {
 		return errors.New("wildcard domain")
 	}
 
@@ -99,7 +99,8 @@ func (b Bruter) Brute(ctx context.Context, r io.Reader, out chan<- string) error
 	return nil
 }
 
-func isWildcard(ctx context.Context, d string, srv string) bool {
+// IsWildcard checks wheter a domain supports wildcard subdomains or not.
+func IsWildcard(ctx context.Context, d string, srv string) bool {
 	attempts := make([]string, 4)
 	for i := 0; i < 4; i++ {
 		uuid, err := uuid()

@@ -111,7 +111,7 @@ func TestIsWildcard(t *testing.T) {
 
 	for _, tc := range tt {
 		t.Run(tc.name, func(t *testing.T) {
-			out := isWildcard(context.Background(), tc.domain, tc.srv)
+			out := IsWildcard(context.Background(), tc.domain, tc.srv)
 			if out != tc.exp {
 				t.Fatalf("expected %v got %v", tc.exp, out)
 			}
