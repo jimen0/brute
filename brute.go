@@ -80,13 +80,11 @@ func (b Bruter) Brute(ctx context.Context, r io.Reader, out chan<- string) error
 		}
 
 		val := sc.Text()
-		aux := val
-
-		chans[current%b.Workers] <- aux
+		chans[current%b.Workers] <- val
 		current++
 	}
 
-	if err := sc.Err(); err != nil && err != io.EOF {
+	if err := sc.Err(); err != nil {
 		done <- struct{}{}
 		return err
 	}
